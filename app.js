@@ -6,11 +6,12 @@ const express    = require("express"),
       datetime   = require(__dirname + "/date.js"),
       _          = require("lodash");
       app        = express();
+      port = 4000;
 
 //     console.log(datetime.timeDay())
 //     console.log(datetime.timeDat())
 // // console.log(datetime.timeDate())
-mongoose.connect("mongodb://localhost:27017/todoDb", {useNewUrlParser: true,  useUnifiedTopology: true})
+mongoose.connect("mongodb://localhost:27017/todoDb", {useNewUrlParser: true,  useUnifiedTopology: true, useFindAndModify: false})
 app.set("view engine", "ejs")
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"))
@@ -105,8 +106,8 @@ app.post("/delete", (req, res)=>{
     }
 })
 
-app.listen(3000, ()=>{
-    console.log("We are live at port 3000")
+app.listen(process.env.PORT || port, ()=>{
+    console.log(`Server is live at port ${port}`)
 })
 
   
